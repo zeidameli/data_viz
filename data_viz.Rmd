@@ -1,0 +1,53 @@
+---
+title: "Data Visualization"
+author: "Zeid El Ameli"
+date: "5/1/2022"
+output: html_document
+fig_width: 20
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+# Libraries
+library(ggplot2)
+library(tidyverse)
+library(hrbrthemes)
+library(rpivotTable)
+# Load dataset (csv)
+data <- read.csv("C:/Users/zeida/Documents/superstore.csv", header=TRUE)
+
+# plot
+counts <- table(data$State)
+barplot(counts, main="Oders by State",xlab="State", ylab="Number of Orders", las=2)
+
+```
+
+## Barplots
+Bar plots are a great way to quickly scan your data, it gives us a brief overview of what we're dealing with.
+Below is an example of the number of orders by state for a large superstore.
+
+```{r barplot, fig.height=7, fig.width=14}
+# Load dataset (csv)
+data <- read.csv("C:/Users/zeida/Documents/superstore.csv", header=TRUE)
+
+
+# plot
+counts <- table(data$State)
+barplot(counts, main="Oders by State", ylab="Number of Orders", las=2)
+
+```
+
+## Other Iterations of plots
+
+You can slice and dice your data however you please. To make your job easier, use pivoted charts for a powerful, interactive analytics experience!
+
+Note that the default pivoted chart below is a bar chart of the sum of sales ($) by state, feel free to play with it however you want! 
+
+- use the chart type selector on the top left to change the way you want to visualize your data
+- use the aggregation function seelctor (how to group your data) to choose what metrics you're interested in.
+- use the selector below the aggregator (where it says "Sales") to choose what do you want to aggregate
+- use the blank space on top of the chart to add/remove groups of data (the default here is "State", but you can drag it out and/or add another type of grouping) 
+
+```{r pivot, echo=FALSE}
+rpivotTable(data, aggregatorName= "Sum", vals="Sales", cols="State", rendererName= "Bar Chart")
+```
